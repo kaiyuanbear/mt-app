@@ -30,7 +30,7 @@ module.exports = {
   css: [
     'element-ui/lib/theme-chalk/reset.css',
     'element-ui/lib/theme-chalk/index.css',
-    '~assters/css/mian.css'
+    '@/assets/css/main.css'
   ],
 
   /*
