@@ -1,6 +1,4 @@
-# mt-app
-
-> My Nuxt SSR project
+> Vue全家桶+SSR+Koa2美团
 
 ## Build Setup
 
