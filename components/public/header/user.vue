@@ -15,7 +15,7 @@
       <nuxt-link
         class="register"
         to="/register"
-      >退出</nuxt-link>
+      >注册</nuxt-link>
     </template>
   </div>
 </template>
@@ -23,7 +23,7 @@
 export default {
   data() {
     return {
-      user: '123'
+      user: ''
     }
   }
 }
