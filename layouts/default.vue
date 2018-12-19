@@ -1,7 +1,9 @@
 <template>
   <el-container class="layout-default">
-    <el-header><my-header/></el-header>
-    <el-main><nuxt/></el-main>
+    <el-header height="197px"><my-header/></el-header>
+    <el-main>
+      <nuxt/>
+    </el-main>
     <el-footer>Footer</el-footer>
   </el-container>
 </template>
@@ -14,3 +16,9 @@
     }
   }
 </script>
+<style lang="scss">
+  .el-main {
+    overflow: inherit;
+    background-color: #eee;
+  }
+</style>
