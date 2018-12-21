@@ -1,95 +1,85 @@
 <template>
   <div class="m-menu">
     <dl
-      @mouseleave="mouseleave"
       class="nav"
-    >
+      @mouseleave="mouseleave">
       <dt>全部分类</dt>
       <dd
-        :key="index"
-        @mouseenter="mouseenter(item.type)"
-        v-for="(item, index) in menu"
-      >
-        <i :class="item.type"/>
-        {{ item.name }}
-        <span class="arrow"/>
+        v-for="(item,idx) in menu"
+        :key="idx"
+        @mouseenter="enter">
+        <i :class="item.type"/>{{ item.name }}<span class="arrow"/>
       </dd>
     </dl>
     <div
-      class="detail"
       v-if="kind"
-      @mouseenter="enterDetail"
-      @mouseleave="leaveDetail"
-    >
-      <template v-for="(item, index) in curDetail">
-        <h4 :key="index">{{item.title}}</h4>
+      class="detail"
+      @mouseenter="sover"
+      @mouseleave="sout">
+      <template
+        v-for="(item,idx) in curdetail.child">
+        <h4 :key="idx">{{ item.title }}</h4>
         <span
-          :key="childIndex"
-          v-for="(childItem, childIndex) in item.child"
-        >{{childItem}}</span>
+          v-for="v in item.child"
+          :key="v">{{ v }}</span>
       </template>
     </div>
   </div>
 </template>
+
 <script>
 export default {
-  data() {
+  data(){
     return {
-      kind: '',
-      menu: [
-        {
-          type: 'food',
-          name: '美食',
-          child: [
-            {
-              title: '美食',
-              child: ['代金券', '甜点饮品', '火锅', '自助餐', '小吃快餐']
-            }
-          ]
-        },
-        {
-          type: 'takeout',
-          name: '外卖',
-          child: [
-            {
-              title: '外卖',
-              child: ['美团外卖', '卤肉饭', '烧烤']
-            }
-          ]
-        },
-        {
-          type: 'hotel',
-          name: '酒店',
-          child: [
-            {
-              title: '星级',
-              child: ['一星', '二星', '三星']
-            }
-          ]
-        }
-      ]
+      kind:'',
+      menu:[{
+        type:'food',
+        name:'美食',
+        child:[{
+          title:'美食',
+          child:['代金券','甜点饮品','火锅','自助餐','小吃快餐']
+        }]
+      },{
+        type:'takeout',
+        name:'外卖',
+        child:[{
+          title:'外卖',
+          child:['美团外卖']
+        }]
+      },{
+        type:'hotel',
+        name:'酒店',
+        child:[{
+          title:'酒店星级',
+          child:['经济型','舒适/三星','高档/四星','豪华/五星']
+        }]
+      }]
     }
   },
-  computed: {
-    curDetail() {
-      return this.menu.filter(item => item.type === this.kind)[0].child
+  computed:{
+    curdetail() {
+      return this.menu.filter(item => item.type===this.kind)[0]
     }
   },
-  methods: {
-    mouseenter(type) {
-      this.kind = type
+  methods:{
+    mouseleave:function(){
+      let self=this;
+      self._timer=setTimeout(function(){
+        self.kind=''
+      },150)
     },
-    mouseleave() {
-      this._timer = setTimeout(() => {
-        this.kind = ''
-      }, 200)
+    enter:function(e){
+      this.kind=e.target.querySelector('i').className
     },
-    enterDetail() {
-      if (this._timer) clearTimeout(this._timer)
+    sover:function(){
+      clearTimeout(this._timer)
     },
-    leaveDetail() {
-      this.kind = ''
+    sout:function(){
+      this.kind=''
     }
   }
 }
 </script>
+
+<style lang="css">
+</style>
