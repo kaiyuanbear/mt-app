@@ -146,24 +146,26 @@ export default {
       })
       if (!namePass && !emailPass) {
         self.$axios.post('/users/verify', {
-          username: encodeURIComponent(self.ruleForm.name),
+          username: encodeURIComponent(self.ruleForm.name), // 要对中文进行编码
           email: self.ruleForm.email
         }).then(({
           status,
           data
         }) => {
-          if (status === 200 && data && data.code === 0) {
+          if (status === 200 && data && data.code ===0) {
             let count = 60;
-            self.statusMsg = `验证码已发送,剩余${count--}秒`
-            self.timerid = setInterval(function () {
-              self.statusMsg = `验证码已发送,剩余${count--}秒`
-              if (count === 0) {
+            self.statusMsg = `验证码已发送，还剩${count--}秒`
+
+            self.timerid = setInterval(() => {
+              self.statusMsg = `验证码已发送，还剩${count--}秒`
+              if (!count) {
                 clearInterval(self.timerid)
               }
             }, 1000)
           } else {
             self.statusMsg = data.msg
           }
+          
         })
       }
     },
@@ -173,7 +175,7 @@ export default {
         if (valid) {
           self.$axios.post('/users/signup', {
             username: window.encodeURIComponent(self.ruleForm.name),
-            password: CryptoJS.MD5(self.ruleForm.pwd).toString(),
+            password: CryptoJS.MD5(self.ruleForm.pwd ).toString(),
             email: self.ruleForm.email,
             code: self.ruleForm.code
           }).then(({
